@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->string('akte_kelahiran');
-            $table->string('akte_keluarga');
+            $table->string('kartu_keluarga');
             $table->string('kks');
             $table->string('foto_rumah');
             $table->string('ijazah');

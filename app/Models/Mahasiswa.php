@@ -8,7 +8,7 @@ class Mahasiswa extends Model
 {
 protected $fillable = [
     'user_id', 'nik', 'nama_lengkap', 'tempat_lahir', 'tanggal_lahir',
-    'akte_kelahiran', 'akte_keluarga', 'kks', 'foto_rumah', 'ijazah', 'raport',
+    'akte_kelahiran', 'kartu_keluarga', 'kks', 'foto_rumah', 'ijazah', 'raport',
     'pas_foto', 'shun', 'prestasi', 'kartu_bansos', 'sktm', 'penghasilan', 'bukti_ptn',
 ];
 

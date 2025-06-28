@@ -9,6 +9,14 @@ use App\Models\Mahasiswa;
 
 class MahasiswaController extends Controller
 {
+public function form()
+{
+     $mahasiswa = Mahasiswa::where('user_id', Auth::id())->first();
+
+        return view('mahasiswa.form', [
+            'mahasiswa' => $mahasiswa
+        ]);
+}
     public function store(Request $request)
     {
         $request->validate([
@@ -17,7 +25,7 @@ class MahasiswaController extends Controller
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'akte_kelahiran' => 'required|file|mimes:pdf',
-            'akte_keluarga' => 'required|file|mimes:pdf',
+            'kartu_keluarga' => 'required|file|mimes:pdf',
             'kks' => 'required|file|mimes:pdf',
             'foto_rumah' => 'required|image',
             'ijazah' => 'required|file|mimes:pdf',
@@ -40,7 +48,7 @@ class MahasiswaController extends Controller
 
         // Simpan file ke storage/app/public/data/
         $mahasiswa->akte_kelahiran = $request->file('akte_kelahiran')->store('data', 'public');
-        $mahasiswa->akte_keluarga = $request->file('akte_keluarga')->store('data', 'public');
+        $mahasiswa->kartu_keluarga = $request->file('kartu_keluarga')->store('data', 'public');
         $mahasiswa->kks = $request->file('kks')->store('data', 'public');
         $mahasiswa->foto_rumah = base64_encode(file_get_contents($request->file('foto_rumah')));
         $mahasiswa->ijazah = $request->file('ijazah')->store('data', 'public');

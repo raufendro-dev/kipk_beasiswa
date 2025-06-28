@@ -29,7 +29,7 @@
 
             <div>
                 <label class="block font-semibold">Akte Keluarga (PDF)</label>
-                <input type="file" name="akte_keluarga" accept="application/pdf" required>
+                <input type="file" name="kartu_keluarga" accept="application/pdf" required>
             </div>
 
             <div>

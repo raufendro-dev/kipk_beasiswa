@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/data-diri', [MahasiswaController::class, 'create'])->name('mahasiswa.form');
+    Route::get('/data-diri-lihat', [MahasiswaController::class, 'form'])->name('mahasiswa.form');
     Route::post('/data-diri', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
 
 });

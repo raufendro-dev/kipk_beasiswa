@@ -9,92 +9,67 @@
 
             <div>
                 <label class="block font-semibold">NIK</label>
-                <input type="text" name="nik" class="form-input w-full border-gray-300 rounded" required>
+                <input type="text" name="nik" class="form-input w-full border-gray-300 rounded" required value="{{ old('nik', $mahasiswa->nik ?? '') }}">
             </div>
 
             <div>
                 <label class="block font-semibold">Nama Lengkap</label>
-                <input type="text" name="nama_lengkap" class="form-input w-full border-gray-300 rounded" required>
+                <input type="text" name="nama_lengkap" class="form-input w-full border-gray-300 rounded" required value="{{ old('nama_lengkap', $mahasiswa->nama_lengkap ?? '') }}">
             </div>
 
             <div>
                 <label class="block font-semibold">Tempat</label>
-                <input type="text" name="tempat_lahir" class="form-input w-full border-gray-300 rounded" required>
+                <input type="text" name="tempat_lahir" class="form-input w-full border-gray-300 rounded" required value="{{ old('tempat_lahir', $mahasiswa->tempat_lahir ?? '') }}">
             </div>
 
             <div>
                 <label class="block font-semibold">Tanggal Lahir</label>
-                <input type="date" name="tanggal_lahir" class="form-input w-full border-gray-300 rounded" required>
+                <input type="date" name="tanggal_lahir" class="form-input w-full border-gray-300 rounded" required value="{{ old('tanggal_lahir', $mahasiswa->tanggal_lahir ?? '') }}">
             </div>
 
-            <div>
-                <label class="block font-semibold">Akte Kelahiran (PDF)</label>
-                <input type="file" name="akte_kelahiran" accept="application/pdf" required>
-            </div>
+            @php
+                $fileFields = [
+                    'akte_kelahiran' => 'Akte Kelahiran (PDF)',
+                    'kartu_keluarga' => 'Kartu Keluarga (PDF)',
+                    'kks' => 'KKS / STKM (PDF)',
+                    'foto_rumah' => 'Foto Rumah / Rekening Listrik (Image)',
+                    'ijazah' => 'Ijazah / SKL SMA (PDF)',
+                    'raport' => 'Raport Semester 1-5 (PDF)',
+                    'pas_foto' => 'Pas Foto 3x4 (Image)',
+                    'shun' => 'SHUN / Sertifikat Ujian Nasional (PDF)',
+                    'prestasi' => 'Sertifikat Prestasi (PDF)',
+                    'kartu_bansos' => 'Kartu KIP / PKH / BDT / Kartu Miskin (Image)',
+                    'sktm' => 'Surat Tidak Mampu (PDF)',
+                    'penghasilan' => 'Slip Gaji / Surat Penghasilan (PDF)',
+                    'bukti_ptn' => 'Bukti Diterima PTN(S) (Image)',
+                ];
+            @endphp
 
-            <div>
-                <label class="block font-semibold">Akte Keluarga (PDF)</label>
-                <input type="file" name="akte_keluarga" accept="application/pdf" required>
-            </div>
+            @foreach ($fileFields as $field => $label)
+                <div>
+                    <label class="block font-semibold">{{ $label }}</label>
+                    <input type="file" name="{{ $field }}" accept="{{ str_contains($field, 'image') || str_contains($field, 'foto') || str_contains($field, 'rumah') || str_contains($field, 'bukti') || str_contains($field, 'kartu') ? 'image/*' : 'application/pdf' }}">
+                    @if (!empty($mahasiswa?->$field))
+                        <div class="mt-1">
+                            @php use Illuminate\Support\Str; @endphp
 
-            <div>
-                <label class="block font-semibold">KKS / STKM (PDF)</label>
-                <input type="file" name="kks" accept="application/pdf" required>
-            </div>
+@if (Str::startsWith($mahasiswa->$field, 'data:image'))
+    <img src="{{ $mahasiswa->$field }}" alt="{{ $label }}" class="mt-2 w-32 rounded shadow">
+@elseif (Str::endsWith($mahasiswa->$field, ['.jpg', '.jpeg', '.png', '.webp']))
+    <img src="{{ asset('storage/' . $mahasiswa->$field) }}" alt="{{ $label }}" class="mt-2 w-32 rounded shadow">
+@else
+    <a href="{{ asset('storage/' . $mahasiswa->$field) }}" target="_blank" class="text-sm text-blue-600 underline">👁️ Lihat</a>
+@endif
+                            <!-- <a href="{{ asset('storage/' . $mahasiswa->$field) }}" target="_blank" class="text-sm text-blue-600 underline">👁️ Lihat</a> -->
 
-            <div>
-                <label class="block font-semibold">Foto Rumah / Rekening Listrik (Image)</label>
-                <input type="file" name="foto_rumah" accept="image/*" required>
-            </div>
-
-            <div>
-                <label class="block font-semibold">Ijazah / SKL SMA (PDF)</label>
-                <input type="file" name="ijazah" accept="application/pdf" required>
-            </div>
-
-            <div>
-                <label class="block font-semibold">Raport Semester 1-5 (PDF)</label>
-                <input type="file" name="raport" accept="application/pdf" required>
-            </div>
-
-            <div>
-                <label class="block font-semibold">Pas Foto 3x4 (Image)</label>
-                <input type="file" name="pas_foto" accept="image/*" required>
-            </div>
-
-            <div>
-                <label class="block font-semibold">SHUN / Sertifikat Ujian Nasional (PDF)</label>
-                <input type="file" name="shun" accept="application/pdf" required>
-            </div>
-
-            <div>
-                <label class="block font-semibold">Sertifikat Prestasi (PDF)</label>
-                <input type="file" name="prestasi" accept="application/pdf">
-            </div>
-
-            <div>
-                <label class="block font-semibold">Kartu KIP / PKH / BDT / Kartu Miskin (Image)</label>
-                <input type="file" name="kartu_bansos" accept="image/*" required>
-            </div>
-
-            <div>
-                <label class="block font-semibold">Surat Tidak Mampu (PDF)</label>
-                <input type="file" name="sktm" accept="application/pdf">
-            </div>
-
-            <div>
-                <label class="block font-semibold">Slip Gaji / Surat Penghasilan (PDF)</label>
-                <input type="file" name="penghasilan" accept="application/pdf" required>
-            </div>
-
-            <div>
-                <label class="block font-semibold">Bukti Diterima PTN(S) (Image)</label>
-                <input type="file" name="bukti_ptn" accept="image/*" required>
-            </div>
+                        </div>
+                    @endif
+                </div>
+            @endforeach
 
             <div class="pt-4">
                 <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
-                    💾 Simpan Data
+                    📂 Simpan Data
                 </button>
             </div>
         </form>
