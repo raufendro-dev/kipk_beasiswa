@@ -51,16 +51,7 @@
                     <input type="file" name="{{ $field }}" accept="{{ str_contains($field, 'image') || str_contains($field, 'foto') || str_contains($field, 'rumah') || str_contains($field, 'bukti') || str_contains($field, 'kartu') ? 'image/*' : 'application/pdf' }}">
                     @if (!empty($mahasiswa?->$field))
                         <div class="mt-1">
-                            @php use Illuminate\Support\Str; @endphp
-
-@if (Str::startsWith($mahasiswa->$field, 'data:image'))
-    <img src="{{ $mahasiswa->$field }}" alt="{{ $label }}" class="mt-2 w-32 rounded shadow">
-@elseif (Str::endsWith($mahasiswa->$field, ['.jpg', '.jpeg', '.png', '.webp']))
-    <img src="{{ asset('storage/' . $mahasiswa->$field) }}" alt="{{ $label }}" class="mt-2 w-32 rounded shadow">
-@else
-    <a href="{{ asset('storage/' . $mahasiswa->$field) }}" target="_blank" class="text-sm text-blue-600 underline">👁️ Lihat</a>
-@endif
-                            <!-- <a href="{{ asset('storage/' . $mahasiswa->$field) }}" target="_blank" class="text-sm text-blue-600 underline">👁️ Lihat</a> -->
+                            <a href="{{ asset('storage/' . $mahasiswa->$field) }}" target="_blank" class="text-sm text-blue-600 underline">👁️ Lihat</a>
 
                         </div>
                     @endif
